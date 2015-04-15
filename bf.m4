@@ -11,6 +11,26 @@ divert(-1)
 # [ bn(`
 # ] ')ed
 
+## convert brainfuck code to internal code.
+
+define(`token', `changequote({,})ifelse(
+		{$1}, {>}, {`'ip},
+		{$1}, {<}, {`'dp},
+		{$1}, {+}, {`'ic},
+		{$1}, {-}, {`'dc},
+		{$1}, {.}, {`'pr},
+		{$1}, {[}, {`'bn(`},
+		{$1}, {]}, {')`'ed}){}changequote')
+
+define(`parse', `ifelse(
+	eval(len(`$*')>0), 1,
+	`token(substr(`$*',0,1))`'parse(substr(`$*',1))')')
+
+define(`internal', parse(include(`/dev/stdin')))
+
+
+## processor
+
 # pointer
 define(`ptr', `0')
 
@@ -141,8 +161,5 @@ define(`pr', `ifelse(
    cv, 126, `~`'',
    `.')')
 
-define(`tmp', maketemp(`/tmp/bfm4-XXXXXX'))
-syscmd(`sed -e "s/>/\`\'ip\`\'/g; s/</\`\'dp\`\'/g; s/+/\`\'ic\`\'/g; s/-/\`\'dc\`\'/g; s/\./\`\'pr\`\'/g; s/\[/\`\'bn(\`/g; s/]/\')ed\`\'/g;" > 'defn(`tmp'))
-
 divert(0)dnl
-include(defn(`tmp'))dnl
+internal
