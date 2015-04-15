@@ -34,10 +34,6 @@ define(`internal', parse(include(`/dev/stdin')))
 # pointer
 define(`ptr', `0')
 
-# initialize buffer
-define(`init', `ifelse(`$1', `-1', , `define(`_$1_', 0)init(decr($1))')')
-init(1000)
-
 # current value
 define(`cv', `defn(_`'defn(`ptr')`'_)')
 
@@ -48,13 +44,13 @@ define(`ip', `define(`ptr', incr(defn(`ptr')))`'')
 define(`dp', `define(`ptr', decr(defn(`ptr')))`'')
 
 # increment current value (+)
-define(`ic', `define(`_'defn(`ptr')`_', incr(cv))`'')
+define(`ic', `define(`_'defn(`ptr')`_', incr(eval(cv+0)))`'')
 
 # decrement current value (-)
-define(`dc', `define(`_'defn(`ptr')`_', decr(cv))`'')
+define(`dc', `define(`_'defn(`ptr')`_', decr(eval(cv+0)))`'')
 
 # begen loop ([)
-define(`bn', `pushdef(`s', `ifelse(eval(cv>0), 1, `$1`'s')')')
+define(`bn', `pushdef(`s', `ifelse(eval(cv+0>0), 1, `$1`'s')')')
 
 # end loop (])
 define(`ed', `s`'popdef(`s')')
