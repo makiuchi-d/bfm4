@@ -49,7 +49,7 @@ define(`ic', `define(`_'defn(`ptr')`_', incr(eval(cv+0)))`'')
 # decrement current value (-)
 define(`dc', `define(`_'defn(`ptr')`_', decr(eval(cv+0)))`'')
 
-# begen loop ([)
+# begin loop ([)
 define(`bn', `pushdef(`s', `ifelse(eval(cv+0>0), 1, `$1`'s')')')
 
 # end loop (])
