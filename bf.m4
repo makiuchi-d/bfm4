@@ -35,7 +35,7 @@ define(`internal', parse(include(`/dev/stdin')))
 define(`ptr', `0')
 
 # current value
-define(`cv', `defn(_`'defn(`ptr')`'_)')
+define(`cv', `eval(defn(_`'defn(`ptr')`'_)+0)')
 
 # increment ptr (>)
 define(`ip', `define(`ptr', incr(defn(`ptr')))`'')
@@ -44,13 +44,13 @@ define(`ip', `define(`ptr', incr(defn(`ptr')))`'')
 define(`dp', `define(`ptr', decr(defn(`ptr')))`'')
 
 # increment current value (+)
-define(`ic', `define(`_'defn(`ptr')`_', incr(eval(cv+0)))`'')
+define(`ic', `define(`_'defn(`ptr')`_', incr(cv))`'')
 
 # decrement current value (-)
-define(`dc', `define(`_'defn(`ptr')`_', decr(eval(cv+0)))`'')
+define(`dc', `define(`_'defn(`ptr')`_', decr(cv))`'')
 
 # begin loop ([)
-define(`bn', `pushdef(`s', `ifelse(eval(cv+0>0), 1, `$1`'s')')')
+define(`bn', `pushdef(`s', `ifelse(eval(cv>0), 1, `$1`'s')')')
 
 # end loop (])
 define(`ed', `s`'popdef(`s')')
@@ -59,4 +59,4 @@ define(`ed', `s`'popdef(`s')')
 define(`pr', `format(`%c', cv)')
 
 divert(0)dnl
-internal
+internal`'dnl
