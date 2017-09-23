@@ -35,7 +35,7 @@ define(`internal', parse(include(`/dev/stdin')))
 define(`ptr', `0')
 
 # current value
-define(`cv', `eval(defn(_`'defn(`ptr')`'_)+0)')
+define(`cv', `eval(defn(`_'defn(`ptr')`_')+0)')
 
 # increment ptr (>)
 define(`ip', `define(`ptr', incr(defn(`ptr')))`'')
